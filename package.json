@@ -23,7 +23,6 @@
     },
     "dependencies": {
         "@vanilla-swap-libs/vanilla-swap-core": "https://github.com/VanillaSwap/vanilla-swap-core.git",
-        "@mapbox/node-pre-gyp": "^1.0.10",
         "big.js": "^5.2.2",
         "decimal.js-light": "^2.5.0",
         "jsbi": "^3.1.1",
