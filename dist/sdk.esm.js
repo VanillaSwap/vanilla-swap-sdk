@@ -10,7 +10,7 @@ import { keccak256, pack } from '@ethersproject/solidity';
 import { Contract } from '@ethersproject/contracts';
 import { getNetwork } from '@ethersproject/networks';
 import { getDefaultProvider } from '@ethersproject/providers';
-import IPancakePair from '@wagyu-swap-libs/wagyu-swap-core/artifacts/IPancakePair.json';
+import IPancakePair from '@vanilla-swap-libs/vanilla-swap-core/build/contracts/IPancakePair.json';
 
 var addresses = {
 	"106": {
@@ -29,12 +29,31 @@ var addresses = {
 	WagyuRouter: "0x3D1c58B6d4501E34DF37Cf0f664A58059a188F00"
 },
 	"111": {
-	WagyuFactory: "0x524dB42469a1Eb12E7f2b3fEefD9A1f880fC7A4C",
-	PancakeFactory_Init_Code_Hash: "0x3e587aafa830ed6729f6ad31bd15f244a5938c6c3dc057d4fcf2cbc0b1046987",
-	owner: "0x1a642f0E3c3aF545E7AcBD38b07251B3990914F1",
-	Multicall2: "0xacbc13523fE673dCF8bf549AF00B5b4F9D9aBB6e",
-	WAGToken: "0xb830d8213e2c3dD621037703D05A5e594387B6Be",
-	WVLX: "0x071DA4A38460bb14686C1D44d85A7BDad0d6BaC5",
+	WagyuFactory: "0x0CD6EaaA9E01981b2276cfbA233a4C8d405cBD6C",
+	PancakeFactory_Init_Code_Hash: "a3e926fa33c398b9caba15f9f2ef70dc128e63679b007c3a569c959bedc03fcb",
+	owner: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+	Multicall2: "0x8817F2af1c5564ca51367f7df288deB2A446FE92",
+	WAGToken: "0x7186de1642305b4b66f709a814415AA1657eCbc2",
+	WVLX: "0xBE9D2E6cA9ECBfbaf6E4E045390702eD09770a3a",
+	TE6: "NOTSETYET",
+	TE9: "NOTSETYET",
+	TE12: "NOTSETYET",
+	TE18: "NOTSETYET",
+	WAGStake: "NOTSETYET",
+	Timelock: "NOTSETYET",
+	WAGFarm: "NOTSETYET",
+	WagyuVault: "NOTSETYET",
+	VaultOwner: "NOTSETYET",
+	WAGStakingFactory: "0x211E287FD967a51D7A1F8c2Fb7788c6142e084b1",
+	WagyuRouter: "0x01C0353AB44748237ae88ba5baEd079cda1DACeC"
+},
+	"1337": {
+	WagyuFactory: "0x0CD6EaaA9E01981b2276cfbA233a4C8d405cBD6C",
+	PancakeFactory_Init_Code_Hash: "a3e926fa33c398b9caba15f9f2ef70dc128e63679b007c3a569c959bedc03fcb",
+	owner: "0x90F8bf6A479f320ead074411a4B0e7944Ea8c9C1",
+	Multicall2: "0x8817F2af1c5564ca51367f7df288deB2A446FE92",
+	WAGToken: "0x7186de1642305b4b66f709a814415AA1657eCbc2",
+	WVLX: "0xBE9D2E6cA9ECBfbaf6E4E045390702eD09770a3a",
 	TE6: "0x7777b22B5f5A5d1B9ED16bad28E31215273f48B6",
 	TE9: "0x045cf7eF71cC42a5CA1F9C4A330Bf1349295034c",
 	TE12: "0xF8f13cFdA6b41Cc9FC3FB0Ff217B0C449cE4Eb29",
@@ -45,7 +64,7 @@ var addresses = {
 	WagyuVault: "0xD3A8555607e18142a1AC634c66C15671E6A56686",
 	VaultOwner: "0xe804675EbBBB3c70Cf66F12d2f7ADB8934F3e5F8",
 	WAGStakingFactory: "0x211E287FD967a51D7A1F8c2Fb7788c6142e084b1",
-	WagyuRouter: "0x5F61a8Ef05470A74E4b17C567ff32d26F7A02646"
+	WagyuRouter: "0x01C0353AB44748237ae88ba5baEd079cda1DACeC"
 }
 };
 
@@ -55,6 +74,7 @@ var ChainId;
 (function (ChainId) {
   ChainId[ChainId["MAINNET"] = 106] = "MAINNET";
   ChainId[ChainId["TESTNET"] = 111] = "TESTNET";
+  ChainId[ChainId["DEVNET"] = 1337] = "DEVNET";
 })(ChainId || (ChainId = {}));
 
 var TradeType;
@@ -72,7 +92,7 @@ var Rounding;
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(Rounding || (Rounding = {}));
 
-var DEFAULT_CHAIN_ID = ChainId.MAINNET;
+var DEFAULT_CHAIN_ID = ChainId.DEVNET;
 var FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].WagyuFactory;
 var INIT_CODE_HASH = addresses[DEFAULT_CHAIN_ID].PancakeFactory_Init_Code_Hash;
 var MINIMUM_LIQUIDITY = /*#__PURE__*/JSBI.BigInt(1000); // exports for internal consumption
@@ -108,11 +128,14 @@ function _defineProperties(target, props) {
 function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
   return Constructor;
 }
 
 function _extends() {
-  _extends = Object.assign || function (target) {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
 
@@ -125,29 +148,28 @@ function _extends() {
 
     return target;
   };
-
   return _extends.apply(this, arguments);
 }
 
 function _inheritsLoose(subClass, superClass) {
   subClass.prototype = Object.create(superClass.prototype);
   subClass.prototype.constructor = subClass;
-  subClass.__proto__ = superClass;
+
+  _setPrototypeOf(subClass, superClass);
 }
 
 function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
     return o.__proto__ || Object.getPrototypeOf(o);
   };
   return _getPrototypeOf(o);
 }
 
 function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
     o.__proto__ = p;
     return o;
   };
-
   return _setPrototypeOf(o, p);
 }
 
@@ -157,7 +179,7 @@ function _isNativeReflectConstruct() {
   if (typeof Proxy === "function") return true;
 
   try {
-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
     return true;
   } catch (e) {
     return false;
@@ -166,7 +188,7 @@ function _isNativeReflectConstruct() {
 
 function _construct(Parent, args, Class) {
   if (_isNativeReflectConstruct()) {
-    _construct = Reflect.construct;
+    _construct = Reflect.construct.bind();
   } else {
     _construct = function _construct(Parent, args, Class) {
       var a = [null];
@@ -245,28 +267,24 @@ function _arrayLikeToArray(arr, len) {
 }
 
 function _createForOfIteratorHelperLoose(o, allowArrayLike) {
-  var it;
+  var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];
+  if (it) return (it = it.call(o)).next.bind(it);
 
-  if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) {
-    if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
-      if (it) o = it;
-      var i = 0;
-      return function () {
-        if (i >= o.length) return {
-          done: true
-        };
-        return {
-          done: false,
-          value: o[i++]
-        };
+  if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {
+    if (it) o = it;
+    var i = 0;
+    return function () {
+      if (i >= o.length) return {
+        done: true
       };
-    }
-
-    throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+      return {
+        done: false,
+        value: o[i++]
+      };
+    };
   }
 
-  it = o[Symbol.iterator]();
-  return it.next.bind(it);
+  throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 // see https://stackoverflow.com/a/41102306
@@ -474,7 +492,7 @@ function currencyEquals(currencyA, currencyB) {
     return currencyA === currencyB;
   }
 }
-var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WVLX, 18, 'WVLX', 'Wrapped VLX', 'https://www.velas.com/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WVLX, 18, 'WVLX', 'Wrapped VLX', 'https://www.velas.com/'), _WETH);
+var WETH = (_WETH = {}, _WETH[ChainId.MAINNET] = /*#__PURE__*/new Token(ChainId.MAINNET, addresses[ChainId.MAINNET].WVLX, 18, 'WVLX', 'Wrapped VLX', 'https://www.velas.com/'), _WETH[ChainId.TESTNET] = /*#__PURE__*/new Token(ChainId.TESTNET, addresses[ChainId.TESTNET].WVLX, 18, 'WVLX', 'Wrapped VLX', 'https://www.velas.com/'), _WETH[ChainId.DEVNET] = /*#__PURE__*/new Token(ChainId.DEVNET, addresses[ChainId.DEVNET].WVLX, 18, 'WVLX', 'Wrapped VLX', 'https://www.velas.com/'), _WETH);
 
 var _toSignificantRoundin, _toFixedRounding;
 var Decimal = /*#__PURE__*/toFormat(_Decimal);
@@ -1533,7 +1551,7 @@ var ERC20 = [
 ];
 
 var _TOKEN_DECIMALS_CACHE;
-var TOKEN_DECIMALS_CACHE = (_TOKEN_DECIMALS_CACHE = {}, _TOKEN_DECIMALS_CACHE[ChainId.MAINNET] = {}, _TOKEN_DECIMALS_CACHE);
+var TOKEN_DECIMALS_CACHE = (_TOKEN_DECIMALS_CACHE = {}, _TOKEN_DECIMALS_CACHE[ChainId.MAINNET] = {}, _TOKEN_DECIMALS_CACHE[ChainId.TESTNET] = {}, _TOKEN_DECIMALS_CACHE[ChainId.DEVNET] = {}, _TOKEN_DECIMALS_CACHE);
 /**
  * Contains methods for constructing instances of pairs and tokens from on-chain data.
  */

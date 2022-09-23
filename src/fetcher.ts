@@ -3,14 +3,16 @@ import { getNetwork } from '@ethersproject/networks'
 import { getDefaultProvider } from '@ethersproject/providers'
 import { TokenAmount } from './entities/fractions/tokenAmount'
 import { Pair } from './entities/pair'
-import IPancakePair from '@vanilla-swap-libs/vanilla-swap-core/artifacts/IPancakePair.json'
+import IPancakePair from '@vanilla-swap-libs/vanilla-swap-core/build/contracts/IPancakePair.json'
 import invariant from 'tiny-invariant'
 import ERC20 from './abis/ERC20.json'
 import { ChainId } from './constants'
 import { Token } from './entities/token'
 
 let TOKEN_DECIMALS_CACHE: { [chainId: number]: { [address: string]: number } } = {
-  [ChainId.MAINNET]: {}
+  [ChainId.MAINNET]: {},
+  [ChainId.TESTNET]: {},
+  [ChainId.DEVNET]: {}
 }
 
 /**

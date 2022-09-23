@@ -82,5 +82,13 @@ export const WETH = {
     'WVLX',
     'Wrapped VLX',
     'https://www.velas.com/'
+  ),
+  [ChainId.DEVNET]: new Token(
+    ChainId.DEVNET,
+    addresses[ChainId.DEVNET].WVLX,
+    18,
+    'WVLX',
+    'Wrapped VLX',
+    'https://www.velas.com/'
   )
 }
