@@ -21,7 +21,7 @@ export enum Rounding {
   ROUND_UP
 }
 
-export const DEFAULT_CHAIN_ID = ChainId.DEVNET
+export const DEFAULT_CHAIN_ID = ChainId.MAINNET
 
 export const FACTORY_ADDRESS = addresses[DEFAULT_CHAIN_ID].WagyuFactory
 
