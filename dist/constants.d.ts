@@ -14,6 +14,61 @@ export declare enum Rounding {
     ROUND_HALF_UP = 1,
     ROUND_UP = 2
 }
+export declare const ADDRESSES: {
+    1337: {
+        WagyuFactory: string;
+        PancakeFactory_Init_Code_Hash: string;
+        owner: string;
+        Multicall2: string;
+        WAGToken: string;
+        WVLX: string;
+        TE6: string;
+        TE9: string;
+        TE12: string;
+        TE18: string;
+        WAGStake: string;
+        Timelock: string;
+        WAGFarm: string;
+        WagyuVault: string;
+        VaultOwner: string;
+        WAGStakingFactory: string;
+        WagyuRouter: string;
+    };
+    111: {
+        WagyuFactory: string;
+        PancakeFactory_Init_Code_Hash: string;
+        owner: string;
+        Multicall2: string;
+        WAGToken: string;
+        WVLX: string;
+        TE6: string;
+        TE9: string;
+        TE12: string;
+        TE18: string;
+        WAGStake: string;
+        Timelock: string;
+        WAGFarm: string;
+        WagyuVault: string;
+        VaultOwner: string;
+        WAGStakingFactory: string;
+        WagyuRouter: string;
+    };
+    106: {
+        owner: string;
+        Multicall2: string;
+        WAGToken: string;
+        WVLX: string;
+        WAGStake: string;
+        Timelock: string;
+        WAGFarm: string;
+        WagyuVault: string;
+        VaultOwner: string;
+        WAGStakingFactory: string;
+        WagyuFactory: string;
+        PancakeFactory_Init_Code_Hash: string;
+        WagyuRouter: string;
+    };
+};
 export declare const DEFAULT_CHAIN_ID = ChainId.MAINNET;
 export declare const FACTORY_ADDRESS: string;
 export declare const INIT_CODE_HASH: string;
